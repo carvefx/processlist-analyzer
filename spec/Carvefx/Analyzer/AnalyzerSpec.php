@@ -6,6 +6,7 @@ use PhpSpec\ObjectBehavior;
 
 use Carvefx\Analyzer\Contracts\OutputInterface;
 use Carvefx\Analyzer\Contracts\ProcessListStreamInterface;
+use Prophecy\Argument;
 
 class AnalyzerSpec extends ObjectBehavior
 {
@@ -39,19 +40,58 @@ class AnalyzerSpec extends ObjectBehavior
       $this->fire();
     }
 
+  function it_writes_every_list_item_to_the_output(ProcessListStreamInterface $process_list_stream, OutputInterface $output)
+  {
+    $this->beConstructedWith($process_list_stream, $output, 10, 5);
+
+    $process_list_stream->get()->willReturn($this->mockProcessList())->shouldBeCalledTimes(2);
+
+    $output->write(Argument::any())->shouldBeCalledTimes(20);
+
+    $process_list_stream->refresh()->shouldBeCalledTimes(2);
+
+    $this->fire();
+  }
+
+  function it_dumps_the_entire_formatted_list_from_the_output(ProcessListStreamInterface $process_list_stream, OutputInterface $output)
+  {
+    $this->beConstructedWith($process_list_stream, $output, 10, 5);
+
+    $list = $this->mockProcessList();
+
+    $process_list_stream->get()->willReturn($list)->shouldBeCalledTimes(2);
+    //TODO: append a unique timestamp for each refresh
+    $output->write(Argument::any())->shouldBeCalledTimes(20);
+    $process_list_stream->refresh()->shouldBeCalledTimes(2);
+
+    $output->dump();
+
+    $this->fire()->shouldReturn($this->mockOutputDump());
+  }
 
 
     private function mockProcessList()
     {
       $process_list = [];
       for($i = 0; $i < 10; $i++) {
-        $process = new \StdClass;
-        $process->id = mt_rand();
-        $process->query = 'SELECT * FROM countries ORDER BY id DESC';
-        $process->time = rand(1, 36);
+        $process = [
+          // other properties that we don't care about
+          'Id' => mt_rand(),
+          'Time' => rand(1, 36),
+          'Info' => "SELECT * FROM employees.employees"
+        ];
+
         array_push($process_list, $process);
       }
 
       return $process_list;
     }
+
+  //TODO: implement ValueObject ProcessListItem (perhaps have a Factory build it with Query Hash etc.)
+  private function mockOutputDump()
+  {
+    $dump_list = [];
+
+    return $dump_list;
+  }
 }

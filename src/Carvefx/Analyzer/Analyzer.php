@@ -25,8 +25,24 @@ class Analyzer
         while($this->duration) {
           $list = $this->process_list->get();
 
+          foreach($list as $item) {
+            $this->output->write($item);
+          }
+
           $this->process_list->refresh();
-          $this->duration -= $this->interval;
+          $this->decreaseDuration();
         }
     }
+
+  /*
+  private function getTimestamp()
+  {
+    return intval(microtime(true));
+  }
+  */
+
+  private function decreaseDuration()
+  {
+    $this->duration -= $this->interval;
+  }
 }
