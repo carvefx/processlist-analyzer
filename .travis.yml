@@ -8,7 +8,7 @@ php:
 
 before_script:
   - composer self-update
-  - composer install --prefer-source --no-interaction --dev
+  - composer install --prefer-dist --no-interaction --dev
 
 script:
-  - vendor/bin/phpspec runtrav
+  - vendor/bin/phpspec run
