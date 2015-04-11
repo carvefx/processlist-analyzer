@@ -10,7 +10,9 @@
     ],
     "require": {},
     "require-dev": {
-        "phpspec/phpspec": "2.*@stable"
+        "phpspec/phpspec": "2.*@stable",
+        "phpunit/phpunit": "4.6.*",
+        "mockery/mockery": "0.9.*"
     },
     "autoload": {
         "psr-4": {
