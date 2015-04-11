@@ -40,12 +40,6 @@ class Analyzer
     $this->output->dump();
   }
 
-  /*
-  private function getTimestamp()
-  {
-    return intval(microtime(true));
-  }
-  */
 
   private function decreaseDuration()
   {
