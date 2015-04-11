@@ -1,0 +1,22 @@
+{
+    "name": "carvefx/processlist-analyzer",
+    "description": "Parse a processlist stream into usable formats",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Adrian Mihai",
+            "email": "Adrian@carve.ro"
+        }
+    ],
+    "require": {},
+    "require-dev": {
+        "phpspec/phpspec": "2.*@stable",
+        "phpunit/phpunit": "4.6.*",
+        "mockery/mockery": "0.9.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Carvefx\\Analyzer\\": "src/Carvefx/Analyzer/"
+        }
+    }
+}
