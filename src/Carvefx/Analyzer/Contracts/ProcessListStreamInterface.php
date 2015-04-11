@@ -6,4 +6,4 @@ interface ProcessListStreamInterface
 {
   public function get();
   public function refresh();
-} 
+}
