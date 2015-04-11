@@ -47,6 +47,7 @@ class AnalyzerSpec extends ObjectBehavior
     $process_list_stream->get()->willReturn($this->mockProcessList())->shouldBeCalledTimes(2);
 
     $output->write(Argument::any())->shouldBeCalledTimes(20);
+    $output->dump()->shouldBeCalled();
 
     $process_list_stream->refresh()->shouldBeCalledTimes(2);
 
@@ -60,13 +61,13 @@ class AnalyzerSpec extends ObjectBehavior
     $list = $this->mockProcessList();
 
     $process_list_stream->get()->willReturn($list)->shouldBeCalledTimes(2);
-    //TODO: append a unique timestamp for each refresh
+
     $output->write(Argument::any())->shouldBeCalledTimes(20);
     $process_list_stream->refresh()->shouldBeCalledTimes(2);
 
-    $output->dump();
+    $output->dump()->shouldBeCalled();
 
-    $this->fire()->shouldReturn($this->mockOutputDump());
+    $this->fire();
   }
 
 

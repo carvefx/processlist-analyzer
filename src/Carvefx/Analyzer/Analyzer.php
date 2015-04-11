@@ -32,6 +32,8 @@ class Analyzer
           $this->process_list->refresh();
           $this->decreaseDuration();
         }
+
+      $this->output->dump();
     }
 
   /*
